@@ -3,10 +3,10 @@ import { api } from "./api"
 
 export async function getSession(email: string, password: string){
     //Get a session token from the backend
-    const response = await api.post(`/session/`, 
+    const response = await api.post(`/session/`,
         {"email": email, "password": password},
-        {withCredentials: true}
-      );
+        { withCredentials: true }
+    );
 
     return response.status;
 }
