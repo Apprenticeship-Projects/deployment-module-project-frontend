@@ -23,3 +23,9 @@ export interface CreateChannelData{
     name: string,
     users: string[],
 }
+
+export interface UpdateChannelData{
+    //Interface to update a channel with.
+    name?: string,
+    users?: string[],
+}
