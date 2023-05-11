@@ -17,7 +17,7 @@ export async function getUser(){
         withCredentials: true,
       });
 
-    return response.status;
+    return response;
 }
 
 export async function patchUser(data: UpdateUserData){

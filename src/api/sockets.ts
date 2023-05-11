@@ -1,6 +1,9 @@
 import { io }from 'socket.io-client';
+import * as dotenv from 'dotenv';
 
-const socket = io('http://localhost:8000');
+dotenv.config();
+
+const socket = io(process.env.REACT_APP_API_ORIGIN as string);
 
 socket.on('connect', () => {
     console.log('connect')

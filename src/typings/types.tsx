@@ -17,3 +17,9 @@ export interface GetUserResponseData {
     email: string;
     channels: ChannelInfoData[];
 }
+
+export interface CreateChannelData{
+    //Interface to create a channel with.
+    name: string,
+    users: string[],
+}
