@@ -8,9 +8,10 @@ import Tabs from "@mui/material/Tabs";
 const LoginRegisterForm = () => {
 
   const [loginRegister, setLoginRegister] = useState(0);
+  const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [verify, setVerify] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
 
   function a11yProps(index: number) {
     return {
@@ -40,9 +41,10 @@ const LoginRegisterForm = () => {
         <Tab label="Log in" {...a11yProps(0)} />
         <Tab label="Register" {...a11yProps(1)}/>
     </Tabs>
-    <TextField id="username" label="username" autoComplete="Username" value={username} onChange={e => setUsername(e.target.value)} ></TextField>
+    <TextField type="email" id="email" label="email" autoComplete="Email" value={email} onChange={e => setEmail(e.target.value)}></TextField>
     <TextField type="password" id="password" label="password" autoComplete="Password" value={password} onChange={e => setPassword(e.target.value)}></TextField>
-    {loginRegister === 1 && <TextField type="password" id="verify" label="verify" autoComplete="Verify" value={verify} onChange={e => setVerify(e.target.value)} error={password!==verify} helperText={password!==verify && "Must match password"}></TextField>}
+    {loginRegister === 1 && <TextField type="password" id="verify password" label="verify password" autoComplete="Verify Password" value={verifyPassword} onChange={e => setVerifyPassword(e.target.value)} error={password!==verifyPassword} helperText={password!==verifyPassword && "Must match password"}></TextField>}
+    {loginRegister === 1 && <TextField id="username" label="username" autoComplete="Username" value={username} onChange={e => setUsername(e.target.value)} ></TextField>}
     <Button variant="contained" onClick={handleSubmit}>Submit</Button>
   </Box>;
 };
