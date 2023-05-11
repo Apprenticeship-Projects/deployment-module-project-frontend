@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import {getSession} from "../../api/sessionRoute";
+import {useNavigate} from "react-router-dom";
 
 const LoginRegisterForm = () => {
+  const navigate = useNavigate();
 
   const [loginRegister, setLoginRegister] = useState(0);
   const [email, setEmail] = useState("");
@@ -24,8 +27,10 @@ const LoginRegisterForm = () => {
     };
   }
 
-  function handleSubmit(event: React.MouseEvent){
+  async function handleSubmit(event: React.MouseEvent){
     event.preventDefault();
+
+    let loginError = false;
 
     setEmailError(false);
     setUsernameError(false);
@@ -33,15 +38,25 @@ const LoginRegisterForm = () => {
     setVerifiedPasswordError(false);
     if (!email.includes("@")) {
         setEmailError(true);
+        loginError = true;
     }
     if (username.length === 0) {
         setUsernameError(true);
     }
     if (password.length === 0) {
         setPasswordError(true);
+        loginError = true;
     }
     if (verifyPassword.length === 0 || password !== verifyPassword) {
         setVerifiedPasswordError(true);
+    }
+    if (loginRegister === 0) { // Log in
+        if (!loginError) {
+            const success = await getSession(email, password);
+            if (success) {
+                await navigate("/channels");
+            }
+        }
     }
     return;
   }
