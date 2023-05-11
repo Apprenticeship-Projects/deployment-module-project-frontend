@@ -65,7 +65,7 @@ const LoginRegisterForm = () => {
     </Tabs>
     <TextField type="email" id="email" label="email" autoComplete="Email" required error={emailError} value={email} onChange={e => setEmail(e.target.value)}></TextField>
     <TextField type="password" id="password" label="password" autoComplete="Password" required error={passwordError} value={password} onChange={e => setPassword(e.target.value)}></TextField>
-    {loginRegister === 1 && <TextField type="password" id="verify password" label="verify password" autoComplete="Verify Password" required error={verifyPasswordError} value={verifyPassword} onChange={e => setVerifyPassword(e.target.value)} helperText={password!==verifyPassword && "Must match password"}></TextField>}
+    {loginRegister === 1 && <TextField type="password" id="verify password" label="verify password" autoComplete="Verify Password" required error={verifyPasswordError} value={verifyPassword} onChange={e => setVerifyPassword(e.target.value)} helperText={verifyPasswordError && "Must match password"}></TextField>}
     {loginRegister === 1 && <TextField id="username" label="username" autoComplete="Username" required error={usernameError} value={username} onChange={e => setUsername(e.target.value)} ></TextField>}
     <Button variant="contained" type="submit" onClick={handleSubmit}>Submit</Button>
   </Box>;
