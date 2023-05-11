@@ -12,7 +12,7 @@ const ChannelBox = () => {
   return <Drawer variant="permanent">
         <List>
         {['Global', 'Channel 1', 'Channel 2', 'Channel 3'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+          <ListItem key={index} disablePadding>
             <ListItemButton>
               <ListItemText primary={text} />
             </ListItemButton>
