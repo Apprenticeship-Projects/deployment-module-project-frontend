@@ -3,6 +3,7 @@ import './App.css';
 import {
   createBrowserRouter,
   createRoutesFromElements,
+  Outlet,
   Route,
   RouterProvider,
 } from "react-router-dom";
@@ -13,7 +14,8 @@ function App() {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Index />}>
+      <Route path="/" element={<Outlet />}>
+        <Route index element={<Index />} />
         <Route path="/channels" element={<Channels />} />
       </Route>
     )
