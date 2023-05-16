@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Index from "./pages/Index";
 import Channels from "./pages/Channels";
+import SocketProvider from "./components/providers/SocketProvider";
 
 function App() {
   const router = createBrowserRouter(
@@ -19,7 +20,11 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <SocketProvider>
+      <RouterProvider router={router} />
+    </SocketProvider>
+  );
 }
 
 export default App;
