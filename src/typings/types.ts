@@ -34,3 +34,8 @@ export interface UpdateChannelData {
   name?: string;
   users?: string[];
 }
+
+export interface AlertError {
+  error: boolean;
+  message?: string;
+}

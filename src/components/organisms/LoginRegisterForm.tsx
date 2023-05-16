@@ -7,6 +7,7 @@ import Tabs from "@mui/material/Tabs";
 import Alert from "@mui/material/Alert";
 import {getSession} from "../../api/sessionRoute";
 import {useNavigate} from "react-router-dom";
+import {AlertError} from "../../typings/types";
 
 const LoginRegisterForm = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const LoginRegisterForm = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [verifyPassword, setVerifyPassword] = useState("");
   const [verifyPasswordError, setVerifiedPasswordError] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+  const [loginError, setLoginError] = useState<AlertError>({error: false});
 
   function a11yProps(index: number) {
     return {
@@ -57,14 +58,14 @@ const LoginRegisterForm = () => {
       if (!error) {
         setEmailError(false);
         setPasswordError(false);
-        setLoginError(false);
-        const success = await getSession(email, password);
-        if (success) {
+        setLoginError({error: false});
+        const response = await getSession(email, password);
+        if (!response.error) {
           await navigate("/channels");
         } else {
           setEmailError(true);
           setPasswordError(true);
-          setLoginError(true);
+          setLoginError(response);
         }
       }
     }
@@ -91,7 +92,7 @@ const LoginRegisterForm = () => {
         <Tab label="Log in" {...a11yProps(0)} />
         <Tab label="Register" {...a11yProps(1)} />
       </Tabs>
-      {loginError && <Alert severity="error">Incorrect email or password</Alert>}
+      {loginError.error && <Alert severity="error">{loginError.message}</Alert>}
       <TextField
         type="email"
         id="email"
