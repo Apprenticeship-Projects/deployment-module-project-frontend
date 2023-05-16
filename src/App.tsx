@@ -1,5 +1,4 @@
-import React from 'react';
-import './App.css';
+import React from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -7,11 +6,10 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Index from './pages/Index';
-import Channels from './pages/Channels';
+import Index from "./pages/Index";
+import Channels from "./pages/Channels";
 
 function App() {
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Outlet />}>
@@ -21,9 +19,7 @@ function App() {
     )
   );
 
-  return (
-      <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

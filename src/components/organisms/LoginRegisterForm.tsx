@@ -23,11 +23,11 @@ const LoginRegisterForm = () => {
   function a11yProps(index: number) {
     return {
       id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
     };
   }
 
-  async function handleSubmit(event: React.MouseEvent){
+  async function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
 
     let loginError = false;
@@ -37,26 +37,27 @@ const LoginRegisterForm = () => {
     setPasswordError(false);
     setVerifiedPasswordError(false);
     if (!email.includes("@")) {
-        setEmailError(true);
-        loginError = true;
+      setEmailError(true);
+      loginError = true;
     }
     if (username.length === 0) {
-        setUsernameError(true);
+      setUsernameError(true);
     }
     if (password.length === 0) {
-        setPasswordError(true);
-        loginError = true;
+      setPasswordError(true);
+      loginError = true;
     }
     if (verifyPassword.length === 0 || password !== verifyPassword) {
-        setVerifiedPasswordError(true);
+      setVerifiedPasswordError(true);
     }
-    if (loginRegister === 0) { // Log in
-        if (!loginError) {
-            const success = await getSession(email, password);
-            if (success) {
-                await navigate("/channels");
-            }
+    if (loginRegister === 0) {
+      // Log in
+      if (!loginError) {
+        const success = await getSession(email, password);
+        if (success) {
+          await navigate("/channels");
         }
+      }
     }
     return;
   }
@@ -65,25 +66,71 @@ const LoginRegisterForm = () => {
     setLoginRegister(newValue);
   };
 
-  return <Box sx={{
+  return (
+    <Box
+      sx={{
         display: "flex",
         flexDirection: "column",
-        width:"50%",
+        width: "50%",
         alignItems: "stretch",
         justifyContent: "center",
         rowGap: "10px",
-        margin: "20% auto"
-    }}>
-    <Tabs value={loginRegister} onChange={handleChange}>
+        margin: "20% auto",
+      }}
+    >
+      <Tabs value={loginRegister} onChange={handleChange}>
         <Tab label="Log in" {...a11yProps(0)} />
-        <Tab label="Register" {...a11yProps(1)}/>
-    </Tabs>
-    <TextField type="email" id="email" label="email" autoComplete="Email" required error={emailError} value={email} onChange={e => setEmail(e.target.value)}></TextField>
-    <TextField type="password" id="password" label="password" autoComplete="Password" required error={passwordError} value={password} onChange={e => setPassword(e.target.value)}></TextField>
-    {loginRegister === 1 && <TextField type="password" id="verify password" label="verify password" autoComplete="Verify Password" required error={verifyPasswordError} value={verifyPassword} onChange={e => setVerifyPassword(e.target.value)} helperText={verifyPasswordError && "Must match password"}></TextField>}
-    {loginRegister === 1 && <TextField id="username" label="username" autoComplete="Username" required error={usernameError} value={username} onChange={e => setUsername(e.target.value)} ></TextField>}
-    <Button variant="contained" type="submit" onClick={handleSubmit}>Submit</Button>
-  </Box>;
+        <Tab label="Register" {...a11yProps(1)} />
+      </Tabs>
+      <TextField
+        type="email"
+        id="email"
+        label="email"
+        autoComplete="Email"
+        required
+        error={emailError}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      ></TextField>
+      <TextField
+        type="password"
+        id="password"
+        label="password"
+        autoComplete="Password"
+        required
+        error={passwordError}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      ></TextField>
+      {loginRegister === 1 && (
+        <TextField
+          type="password"
+          id="verify password"
+          label="verify password"
+          autoComplete="Verify Password"
+          required
+          error={verifyPasswordError}
+          value={verifyPassword}
+          onChange={(e) => setVerifyPassword(e.target.value)}
+          helperText={verifyPasswordError && "Must match password"}
+        ></TextField>
+      )}
+      {loginRegister === 1 && (
+        <TextField
+          id="username"
+          label="username"
+          autoComplete="Username"
+          required
+          error={usernameError}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        ></TextField>
+      )}
+      <Button variant="contained" type="submit" onClick={handleSubmit}>
+        Submit
+      </Button>
+    </Box>
+  );
 };
 
 export default LoginRegisterForm;
