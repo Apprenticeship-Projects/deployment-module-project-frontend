@@ -1,3 +1,8 @@
+export interface UserData {
+  username: string;
+  email: string;
+}
+
 export interface UpdateUserData {
   //Interface to send data to update a user with.
   username?: string;
