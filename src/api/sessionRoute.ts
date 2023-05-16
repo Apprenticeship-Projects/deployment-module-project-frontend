@@ -11,7 +11,6 @@ export async function getSession(email: string, password: string) {
   } catch {
     return false;
   }
-
   return true;
 }
 
