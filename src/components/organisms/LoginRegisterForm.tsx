@@ -56,6 +56,9 @@ const LoginRegisterForm = () => {
         const success = await getSession(email, password);
         if (success) {
           await navigate("/channels");
+        } else {
+          setEmailError(true);
+          setPasswordError(true);
         }
       }
     }
