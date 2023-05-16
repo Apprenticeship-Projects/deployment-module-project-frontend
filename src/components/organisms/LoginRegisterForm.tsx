@@ -4,6 +4,7 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import Alert from "@mui/material/Alert";
 import {getSession} from "../../api/sessionRoute";
 import {useNavigate} from "react-router-dom";
 
@@ -19,6 +20,7 @@ const LoginRegisterForm = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [verifyPassword, setVerifyPassword] = useState("");
   const [verifyPasswordError, setVerifiedPasswordError] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   function a11yProps(index: number) {
     return {
@@ -30,7 +32,7 @@ const LoginRegisterForm = () => {
   async function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
 
-    let loginError = false;
+    let error = false;
 
     setEmailError(false);
     setUsernameError(false);
@@ -38,29 +40,31 @@ const LoginRegisterForm = () => {
     setVerifiedPasswordError(false);
     if (!email.includes("@")) {
       setEmailError(true);
-      loginError = true;
+      error = true;
     }
     if (username.length === 0) {
       setUsernameError(true);
     }
     if (password.length === 0) {
       setPasswordError(true);
-      loginError = true;
+      error = true;
     }
     if (verifyPassword.length === 0 || password !== verifyPassword) {
       setVerifiedPasswordError(true);
     }
     if (loginRegister === 0) {
       // Log in
-      if (!loginError) {
+      if (!error) {
         setEmailError(false);
         setPasswordError(false);
+        setLoginError(false);
         const success = await getSession(email, password);
         if (success) {
           await navigate("/channels");
         } else {
           setEmailError(true);
           setPasswordError(true);
+          setLoginError(true);
         }
       }
     }
@@ -87,6 +91,7 @@ const LoginRegisterForm = () => {
         <Tab label="Log in" {...a11yProps(0)} />
         <Tab label="Register" {...a11yProps(1)} />
       </Tabs>
+      {loginError && <Alert severity="error">Incorrect email or password</Alert>}
       <TextField
         type="email"
         id="email"
