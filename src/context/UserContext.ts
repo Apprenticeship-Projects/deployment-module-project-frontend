@@ -1,6 +1,6 @@
 import React from "react";
-import {UserData} from "../typings/types";
+import {GetUserResponseData} from "../typings/types";
 
-const UserContext = React.createContext<UserData | null>(null);
+const UserContext = React.createContext<GetUserResponseData | null>(null);
 
 export default UserContext;
