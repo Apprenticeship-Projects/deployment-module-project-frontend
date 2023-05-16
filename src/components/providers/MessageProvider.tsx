@@ -6,10 +6,10 @@ import {ChannelInfoData} from "../../typings/types";
 import {IncomingMessage} from "../../socket";
 import UserContext from "../../context/UserContext";
 
-const user = useContext(UserContext);
-
 const MessageProvider = ({children}: {children?: React.ReactNode}) => {
   const [messages, setMessages] = useState({channels: []} as MessageContextType);
+
+  const user = useContext(UserContext);
 
   useEffect(() => {
     function handleUpdateMessages(
