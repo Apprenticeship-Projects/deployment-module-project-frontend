@@ -1,3 +1,5 @@
+import {Dispatch, SetStateAction} from "react";
+
 export interface UserData {
   username: string;
   email: string;
@@ -33,4 +35,22 @@ export interface UpdateChannelData {
   //Interface to update a channel with.
   name?: string;
   users?: string[];
+}
+
+export interface ChannelBoxProps {
+  activeChannel: number;
+  setActiveChannel: Dispatch<SetStateAction<number>>;
+}
+
+export interface ChatBoxProps {
+  activeChannel: number;
+}
+
+export interface MessageProps {
+  content: string;
+  user: string;
+  isEdited?: boolean;
+  editedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

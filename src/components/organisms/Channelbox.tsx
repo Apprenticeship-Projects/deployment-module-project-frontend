@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -7,9 +7,10 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import MessageContext from "../../context/MessageContext";
+import {ChannelBoxProps} from "../../typings/types";
 
-const ChannelBox = () => {
-  const MessageData = React.useContext(MessageContext);
+const ChannelBox = (props: ChannelBoxProps) => {
+  const MessageData = useContext(MessageContext);
 
   return (
     <Drawer variant="permanent">
