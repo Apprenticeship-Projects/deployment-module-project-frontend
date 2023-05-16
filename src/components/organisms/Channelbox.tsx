@@ -6,15 +6,18 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+import MessageContext from "../../context/MessageContext";
 
 const ChannelBox = () => {
+  const MessageData = React.useContext(MessageContext);
+
   return (
     <Drawer variant="permanent">
       <List>
-        {["Global", "Channel 1", "Channel 2", "Channel 3"].map((text, index) => (
-          <ListItem key={index} disablePadding>
+        {MessageData.channels.map((channel, index) => (
+          <ListItem key={Object.keys(channel)[0]} disablePadding>
             <ListItemButton>
-              <ListItemText primary={text} />
+              <ListItemText primary={channel[0].name} />
             </ListItemButton>
           </ListItem>
         ))}

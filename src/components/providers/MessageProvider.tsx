@@ -5,29 +5,35 @@ import {MessageContextType} from "../../context/MessageContext";
 import {getAllChannelMessages} from "../../api/messageRoute";
 import {ChannelInfoData} from "../../typings/types";
 import {IncomingMessage} from "../../socket";
-import {ChannelMessageListType} from "../../context/MessageContext";
+import {ChannelDataType} from "../../context/MessageContext";
 
 const MessageProvider = ({children}: {children?: React.ReactNode}) => {
-  const [messages, setMessages] = useState({messages: []} as MessageContextType);
+  const [messages, setMessages] = useState({channels: []} as MessageContextType);
 
-  function handleUpdateMessages(channelId: number, messageList: IncomingMessage[]) {
+  function handleUpdateMessages(
+    channelId: number,
+    channelName: string,
+    messageList: IncomingMessage[]
+  ) {
     let updatedMessages = messages;
 
-    let newChannel = {channelId: channelId, messages: messageList};
-    updatedMessages.messages.push(newChannel);
+    let newChannel = {[channelId]: {name: channelName, messages: messageList}};
+
+    updatedMessages.channels.push(newChannel);
 
     setMessages(updatedMessages);
   }
 
   function handleGetChannelMessages(channel: ChannelInfoData, index: number) {
     getAllChannelMessages(channel.id).then((response) => {
-      handleUpdateMessages(channel.id, response.data);
+      handleUpdateMessages(channel.id, channel.name, response.data);
     });
   }
 
   useEffect(() => {
     getUser().then((response) => {
       //User data contains channel ids
+      console.log(response.data);
       response.data.channels.forEach(handleGetChannelMessages);
     });
   });
