@@ -37,6 +37,11 @@ export interface UpdateChannelData {
   users?: string[];
 }
 
+export interface AlertError {
+  error: boolean;
+  message?: string;
+}
+
 export interface ChannelBoxProps {
   activeChannel: number;
   setActiveChannel: Dispatch<SetStateAction<number>>;
