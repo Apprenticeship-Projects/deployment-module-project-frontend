@@ -53,6 +53,8 @@ const LoginRegisterForm = () => {
     if (loginRegister === 0) {
       // Log in
       if (!loginError) {
+        setEmailError(false);
+        setPasswordError(false);
         const success = await getSession(email, password);
         if (success) {
           await navigate("/channels");
