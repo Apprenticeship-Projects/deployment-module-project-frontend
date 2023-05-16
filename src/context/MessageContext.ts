@@ -1,12 +1,12 @@
 import React from "react";
-import { OutgoingMessage } from "../socket";
+import { IncomingMessage } from "../socket";
 
-interface ChannelMessageListType{
+export interface ChannelMessageListType{
   channelId: number
-  messages: OutgoingMessage[]
+  messages: IncomingMessage[]
 }
 
-interface MessageContextType {
+export interface MessageContextType {
   messages: ChannelMessageListType[];
 }
 
