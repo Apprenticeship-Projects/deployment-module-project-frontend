@@ -1,16 +1,6 @@
 import {Socket as IOSocket, io} from "socket.io-client";
 
 export interface IncomingMessage {
-  channelId: number;
-  content: string;
-}
-
-export interface IncomingMessageUpdate {
-  id: number;
-  content: string;
-}
-
-export interface OutgoingMessage {
   id: number;
   channelId: number;
   content: string;
@@ -30,8 +20,8 @@ export interface UserConnection {
 }
 
 interface ServerToClientEvents {
-  messageSent: (data: OutgoingMessage) => void;
-  messageEdited: (data: OutgoingMessage) => void;
+  messageSent: (data: IncomingMessage) => void;
+  messageEdited: (data: IncomingMessage) => void;
   messageDeleted: (id: number) => void;
   userJoinedChannel: (data: UserConnection) => void;
   userLeftChannel: (data: UserConnection) => void;
