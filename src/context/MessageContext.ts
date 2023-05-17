@@ -7,11 +7,11 @@ export interface ChannelDataType {
 }
 
 export interface MessageContextType {
-  channels: {[channelId: number]: ChannelDataType}[];
+  channels: {[channelId: number]: ChannelDataType};
 }
 
 const MessageContext = React.createContext<MessageContextType>({
-  channels: [],
+  channels: {},
 });
 
 export default MessageContext;

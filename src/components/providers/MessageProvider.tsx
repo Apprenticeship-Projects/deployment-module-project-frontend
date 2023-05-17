@@ -7,7 +7,7 @@ import {IncomingMessage} from "../../socket";
 import UserContext from "../../context/UserContext";
 
 const MessageProvider = ({children}: {children?: React.ReactNode}) => {
-  const [messages, setMessages] = useState({channels: []} as MessageContextType);
+  const [messages, setMessages] = useState({channels: {}} as MessageContextType);
 
   const user = useContext(UserContext);
 
@@ -19,9 +19,9 @@ const MessageProvider = ({children}: {children?: React.ReactNode}) => {
     ) {
       let updatedMessages = messages;
 
-      let newChannel = {[channelId]: {name: channelName, messages: messageList}};
+      let newChannel = {name: channelName, messages: messageList};
 
-      updatedMessages.channels.push(newChannel);
+      updatedMessages.channels[channelId] = newChannel;
 
       setMessages(updatedMessages);
     }

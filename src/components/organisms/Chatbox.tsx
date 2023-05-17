@@ -9,21 +9,7 @@ import {ChatBoxProps} from "../../typings/types";
 
 const ChatBox = (props: ChatBoxProps) => {
   const [message, setMessage] = useState("");
-  const MessageData = useContext(MessageContext);
-
-  const [activeChannelData, setActiveChannelData] = useState(
-    MessageData.channels.filter(
-      (channel) => Number(Object.keys(channel)[0]) === props.activeChannel
-    )
-  );
-
-  useEffect(() => {
-    setActiveChannelData(
-      MessageData.channels.filter(
-        (channel) => Number(Object.keys(channel)[0]) === props.activeChannel
-      )
-    );
-  }, [MessageData]);
+  const messageData = useContext(MessageContext);
 
   return (
     <Box
@@ -43,7 +29,7 @@ const ChatBox = (props: ChatBoxProps) => {
           justifyContent: "flex-end",
         }}
       >
-        {activeChannelData[0][Number(Object.keys(activeChannelData)[0])].messages.map((message) => {
+        {messageData.channels[props.activeChannel].messages.map((message) => {
           const props = {content: message.content, user: message.user.username};
           return <Message {...props} />;
         })}

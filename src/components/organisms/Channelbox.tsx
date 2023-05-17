@@ -10,15 +10,15 @@ import MessageContext from "../../context/MessageContext";
 import {ChannelBoxProps} from "../../typings/types";
 
 const ChannelBox = (props: ChannelBoxProps) => {
-  const MessageData = useContext(MessageContext);
+  const messageData = useContext(MessageContext);
 
   return (
     <Drawer variant="permanent">
       <List>
-        {MessageData.channels.map((channel, index) => (
-          <ListItem key={Object.keys(channel)[0]} disablePadding>
+        {Object.entries(messageData.channels).map(([key, channel]) => (
+          <ListItem key={key} disablePadding>
             <ListItemButton>
-              <ListItemText primary={channel[0].name} />
+              <ListItemText primary={channel.name} />
             </ListItemButton>
           </ListItem>
         ))}
