@@ -6,11 +6,13 @@ import Box from "@mui/material/Box";
 import MessageContext from "../../context/MessageContext";
 import Message from "../molecules/Message";
 import {ChatBoxProps} from "../../typings/types";
+import {postMessage} from "../../api/messageRoute";
 
 const ChatBox = (props: ChatBoxProps) => {
   const [message, setMessage] = useState("");
   const messageData = useContext(MessageContext);
-
+  console.log(messageData.channels);
+  console.log(messageData.channels.hasOwnProperty(props.activeChannel));
   return (
     <Box
       sx={{
@@ -29,10 +31,14 @@ const ChatBox = (props: ChatBoxProps) => {
           justifyContent: "flex-end",
         }}
       >
-        {messageData.channels[props.activeChannel].messages.map((message) => {
-          const props = {content: message.content, user: message.user.username};
-          return <Message {...props} />;
-        })}
+        {messageData.channels.hasOwnProperty(props.activeChannel) ? (
+          messageData.channels[props.activeChannel].messages.map((message) => {
+            const props = {content: message.content, user: message.user.username};
+            return <Message {...props} />;
+          })
+        ) : (
+          <></>
+        )}
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={8}>
@@ -46,7 +52,17 @@ const ChatBox = (props: ChatBoxProps) => {
           />
         </Grid>
         <Grid item xs={2}>
-          <Button sx={{width: "100%", height: "100%"}} variant="contained" onClick={() => {}}>
+          <Button
+            sx={{width: "100%", height: "100%"}}
+            variant="contained"
+            onClick={() => {
+              if (message) {
+                postMessage(props.activeChannel, message).then((response) => {
+                  setMessage("");
+                });
+              }
+            }}
+          >
             Send
           </Button>
         </Grid>

@@ -16,7 +16,14 @@ const ChannelBox = (props: ChannelBoxProps) => {
     <Drawer variant="permanent">
       <List>
         {Object.entries(messageData.channels).map(([key, channel]) => (
-          <ListItem key={key} disablePadding>
+          <ListItem
+            key={key}
+            value={key}
+            disablePadding
+            onClick={(e) => {
+              props.setActiveChannel(e.currentTarget.value);
+            }}
+          >
             <ListItemButton>
               <ListItemText primary={channel.name} />
             </ListItemButton>

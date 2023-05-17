@@ -17,3 +17,12 @@ export async function getOneMessage(channelId: number, messageId: number) {
 
   return response;
 }
+
+export async function postMessage(channelId: number, content: string) {
+  const data = {channelId, content};
+  console.log(data);
+
+  const response = await api.post(`/message/`, data, {withCredentials: true});
+
+  return response;
+}
