@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Alert from "@mui/material/Alert";
-import {getSession} from "../../api/sessionRoute";
+import {login} from "../../api/sessionRoute";
 import {useNavigate} from "react-router-dom";
 import {AlertError} from "../../typings/types";
 
@@ -59,7 +59,7 @@ const LoginRegisterForm = () => {
         setEmailError(false);
         setPasswordError(false);
         setLoginError({error: false});
-        const response = await getSession(email, password);
+        const response = await login(email, password);
         if (!response.error) {
           await navigate("/channels");
         } else {
