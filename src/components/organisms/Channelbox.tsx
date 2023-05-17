@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -6,15 +6,26 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+import MessageContext from "../../context/MessageContext";
+import {ChannelBoxProps} from "../../typings/types";
 
-const ChannelBox = () => {
+const ChannelBox = (props: ChannelBoxProps) => {
+  const messageData = useContext(MessageContext);
+
   return (
     <Drawer variant="permanent">
       <List>
-        {["Global", "Channel 1", "Channel 2", "Channel 3"].map((text, index) => (
-          <ListItem key={index} disablePadding>
+        {Object.entries(messageData.channels).map(([key, channel]) => (
+          <ListItem
+            key={key}
+            value={key}
+            disablePadding
+            onClick={(e) => {
+              props.setActiveChannel(e.currentTarget.value);
+            }}
+          >
             <ListItemButton>
-              <ListItemText primary={text} />
+              <ListItemText primary={channel.name} />
             </ListItemButton>
           </ListItem>
         ))}

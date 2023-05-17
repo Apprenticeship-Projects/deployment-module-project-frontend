@@ -7,23 +7,28 @@ import {IncomingMessage} from "../../socket";
 import UserContext from "../../context/UserContext";
 
 const MessageProvider = ({children}: {children?: React.ReactNode}) => {
-  const [messages, setMessages] = useState({messages: []} as MessageContextType);
+  const [messages, setMessages] = useState({channels: {}} as MessageContextType);
 
-  const user = useContext(UserContext)
+  const user = useContext(UserContext);
 
   useEffect(() => {
-    function handleUpdateMessages(channelId: number, messageList: IncomingMessage[]) {
+    function handleUpdateMessages(
+      channelId: number,
+      channelName: string,
+      messageList: IncomingMessage[]
+    ) {
       let updatedMessages = messages;
-  
-      let newChannel = {channelId: channelId, messages: messageList};
-      updatedMessages.messages.push(newChannel);
-  
+
+      let newChannel = {name: channelName, messages: messageList};
+
+      updatedMessages.channels[channelId] = newChannel;
+
       setMessages(updatedMessages);
     }
 
     function handleGetChannelMessages(channel: ChannelInfoData, index: number) {
       getAllChannelMessages(channel.id).then((response) => {
-        handleUpdateMessages(channel.id, response.data);
+        handleUpdateMessages(channel.id, channel.name, response.data);
       });
     }
 
