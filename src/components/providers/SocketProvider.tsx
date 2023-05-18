@@ -23,7 +23,7 @@ const SocketProvider = ({children}: {children?: React.ReactNode}) => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
     };
-  });
+  }, []);
 
   return (
     <SocketContext.Provider
