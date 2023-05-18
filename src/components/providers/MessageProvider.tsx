@@ -1,20 +1,14 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect} from "react";
 import MessageContext from "../../context/MessageContext";
-import {MessageContextType} from "../../context/MessageContext";
 import {getAllChannelMessages} from "../../api/messageRoute";
-import {ChannelInfoData} from "../../typings/types";
 import {IncomingMessage} from "../../socket";
 import UserContext from "../../context/UserContext";
 import SocketContext from "../../context/SocketContext";
 import {useImmer} from "use-immer";
+import ChannelContext from "../../context/ChannelContext";
 
-const MessageProvider = ({
-  children,
-  activeChannel,
-}: {
-  children?: React.ReactNode;
-  activeChannel: number;
-}) => {
+const MessageProvider = ({children}: {children?: React.ReactNode}) => {
+  const activeChannel = useContext(ChannelContext);
   const [messages, setMessages] = useImmer<IncomingMessage[]>([]);
 
   const user = useContext(UserContext);
@@ -36,12 +30,11 @@ const MessageProvider = ({
 
   useEffect(() => {
     if (user) {
-      getAllChannelMessages(activeChannel).then((response) => {
-        // console.log(response)
+      getAllChannelMessages(activeChannel.id).then((response) => {
         setMessages(response.data);
       });
     }
-  }, [activeChannel, setMessages, user]);
+  }, [activeChannel.id, setMessages, user]);
 
   return <MessageContext.Provider value={messages}>{children}</MessageContext.Provider>;
 };

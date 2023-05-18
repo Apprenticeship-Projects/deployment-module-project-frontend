@@ -6,11 +6,11 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import MessageContext from "../../context/MessageContext";
-import {ChannelBoxProps} from "../../typings/types";
 import UserContext from "../../context/UserContext";
+import ChannelContext from "../../context/ChannelContext";
 
-const ChannelBox = (props: ChannelBoxProps) => {
+const ChannelBox = () => {
+  const activeChannel = useContext(ChannelContext);
   const userData = useContext(UserContext);
 
   return (
@@ -21,10 +21,10 @@ const ChannelBox = (props: ChannelBoxProps) => {
             key={channel.id}
             disablePadding
             onClick={(e) => {
-              props.setActiveChannel(e.currentTarget.value);
+              activeChannel.set(channel.id);
             }}
           >
-            <ListItemButton>
+            <ListItemButton selected={activeChannel.id === channel.id}>
               <ListItemText primary={channel.name} />
             </ListItemButton>
           </ListItem>

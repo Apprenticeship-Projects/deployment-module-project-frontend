@@ -4,12 +4,18 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import React from "react";
 import {logout} from "../../api/sessionRoute";
-
-async function handleSubmit() {
-  await logout();
-}
+import {useNavigate} from "react-router-dom";
 
 const HeaderAppBar = () => {
+  const navigate = useNavigate();
+
+  async function handleSubmit() {
+    const response = await logout();
+    if (!response.error) {
+      await navigate("/");
+    }
+  }
+
   return (
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static" sx={{justifyContent: "flex-end"}}>

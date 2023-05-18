@@ -1,25 +1,22 @@
-import React, {useState, useContext} from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+import React, {useContext} from "react";
 import Box from "@mui/material/Box";
 import MessageContext from "../../context/MessageContext";
-import {MessageProps} from "../../typings/types";
 import styled from "@emotion/styled";
 import UserContext from "../../context/UserContext";
+import {IncomingMessage} from "../../socket";
 
-const Message = (props: MessageProps) => {
+const Message = (props: IncomingMessage) => {
   const user = useContext(UserContext);
 
   return (
     <Box
-      key={props.key}
+      key={props.id}
       sx={{
         // borderStyle: "solid",
-        backgroundColor: user?.username === props.user ? "#1982FC" : "#43CC47",
+        backgroundColor: user?.username === props.user.username ? "#1982FC" : "#43CC47",
         color: "white",
         width: "25em",
-        alignSelf: user?.username === props.user ? "flex-end" : "flex-start",
+        alignSelf: user?.username === props.user.username ? "flex-end" : "flex-start",
         border: "0.5px solid black",
         borderRadius: "10px",
         margin: "5px",
