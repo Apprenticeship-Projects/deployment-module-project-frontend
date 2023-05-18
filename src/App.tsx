@@ -8,8 +8,7 @@ import {
 import Index from "./pages/Index";
 import Channels from "./pages/Channels";
 import Root from "./pages/base/Root";
-import SocketProvider from "./components/providers/SocketProvider";
-import MessageProvider from "./components/providers/MessageProvider";
+import Logout from "./pages/Logout";
 
 function App() {
   const router = createBrowserRouter(
@@ -17,6 +16,7 @@ function App() {
       <Route path="/" element={<Root />}>
         <Route index element={<Index />} />
         <Route path="/channels" element={<Channels />} />
+        <Route path="/logout" element={<Logout />} />
       </Route>
     )
   );

@@ -8,7 +8,7 @@ const SocketProvider = ({children}: {children?: React.ReactNode}) => {
   useEffect(() => {
     const onConnect = () => setConnected(true);
     const onDisconnect = (reason: string) => {
-      setConnected(false)
+      setConnected(false);
 
       if (reason === "io server disconnect") {
         // the disconnection was initiated by the server, you need to reconnect manually
@@ -23,7 +23,7 @@ const SocketProvider = ({children}: {children?: React.ReactNode}) => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
     };
-  });
+  }, []);
 
   return (
     <SocketContext.Provider

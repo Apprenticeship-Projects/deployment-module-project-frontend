@@ -8,6 +8,7 @@ import Alert from "@mui/material/Alert";
 import {login} from "../../api/sessionRoute";
 import {useNavigate} from "react-router-dom";
 import {AlertError} from "../../typings/types";
+import {registerUser} from "../../api/userRoute";
 
 const LoginRegisterForm = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const LoginRegisterForm = () => {
   const [verifyPassword, setVerifyPassword] = useState("");
   const [verifyPasswordError, setVerifiedPasswordError] = useState(false);
   const [loginError, setLoginError] = useState<AlertError>({error: false});
+  const [registerError, setRegisterError] = useState<AlertError>({error: false});
 
   function a11yProps(index: number) {
     return {
@@ -33,7 +35,8 @@ const LoginRegisterForm = () => {
   async function handleSubmit(event: React.MouseEvent) {
     event.preventDefault();
 
-    let error = false;
+    let errorLogin = false;
+    let errorRegister = false;
 
     setEmailError(false);
     setUsernameError(false);
@@ -41,32 +44,50 @@ const LoginRegisterForm = () => {
     setVerifiedPasswordError(false);
     if (!email.includes("@")) {
       setEmailError(true);
-      error = true;
+      errorLogin = true;
+      errorRegister = true;
     }
     if (username.length === 0) {
       setUsernameError(true);
+      errorRegister = true;
     }
     if (password.length === 0) {
       setPasswordError(true);
-      error = true;
+      errorLogin = true;
+      errorRegister = true;
     }
     if (verifyPassword.length === 0 || password !== verifyPassword) {
       setVerifiedPasswordError(true);
+      errorRegister = true;
     }
-    if (loginRegister === 0) {
+    if (loginRegister === 0 && !errorLogin) {
       // Log in
-      if (!error) {
-        setEmailError(false);
-        setPasswordError(false);
-        setLoginError({error: false});
-        const response = await login(email, password);
-        if (!response.error) {
+      setLoginError({error: false});
+      const response = await login(email, password);
+      if (!response.error) {
+        await navigate("/channels");
+      } else {
+        setEmailError(true);
+        setPasswordError(true);
+        setLoginError(response);
+      }
+    } else if (loginRegister === 1 && !errorRegister) {
+      // Register
+      setRegisterError({error: false});
+      const response = await registerUser(username, email, password);
+      if (!response.error) {
+        const loginResponse = await login(email, password);
+        if (!loginResponse.error) {
           await navigate("/channels");
         } else {
-          setEmailError(true);
-          setPasswordError(true);
-          setLoginError(response);
+          setRegisterError({error: true, message: "An error occurred"});
         }
+      } else {
+        setEmailError(false);
+        setUsernameError(false);
+        setPasswordError(false);
+        setVerifiedPasswordError(false);
+        setRegisterError(response);
       }
     }
     return;
@@ -77,70 +98,77 @@ const LoginRegisterForm = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        width: "50%",
-        alignItems: "stretch",
-        justifyContent: "center",
-        rowGap: "10px",
-        margin: "20% auto",
-      }}
-    >
-      <Tabs value={loginRegister} onChange={handleChange}>
-        <Tab label="Log in" {...a11yProps(0)} />
-        <Tab label="Register" {...a11yProps(1)} />
-      </Tabs>
-      {loginError.error && <Alert severity="error">{loginError.message}</Alert>}
-      <TextField
-        type="email"
-        id="email"
-        label="email"
-        autoComplete="Email"
-        required
-        error={emailError}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      ></TextField>
-      <TextField
-        type="password"
-        id="password"
-        label="password"
-        autoComplete="Password"
-        required
-        error={passwordError}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      ></TextField>
-      {loginRegister === 1 && (
+    <form>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "50%",
+          alignItems: "stretch",
+          justifyContent: "center",
+          rowGap: "10px",
+          margin: "10% auto",
+        }}
+      >
+        <Tabs value={loginRegister} onChange={handleChange}>
+          <Tab label="Log in" {...a11yProps(0)} />
+          <Tab label="Register" {...a11yProps(1)} />
+        </Tabs>
+        {loginRegister === 0 && loginError.error && (
+          <Alert severity="error">{loginError.message}</Alert>
+        )}
+        {loginRegister === 1 && registerError.error && (
+          <Alert severity="error">{registerError.message}</Alert>
+        )}
+        <TextField
+          type="email"
+          id="email"
+          label="email"
+          autoComplete="Email"
+          required
+          error={emailError}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></TextField>
         <TextField
           type="password"
-          id="verify password"
-          label="verify password"
-          autoComplete="Verify Password"
+          id="password"
+          label="password"
+          autoComplete="Password"
           required
-          error={verifyPasswordError}
-          value={verifyPassword}
-          onChange={(e) => setVerifyPassword(e.target.value)}
-          helperText={verifyPasswordError && "Must match password"}
+          error={passwordError}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         ></TextField>
-      )}
-      {loginRegister === 1 && (
-        <TextField
-          id="username"
-          label="username"
-          autoComplete="Username"
-          required
-          error={usernameError}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        ></TextField>
-      )}
-      <Button variant="contained" type="submit" onClick={handleSubmit}>
-        Submit
-      </Button>
-    </Box>
+        {loginRegister === 1 && (
+          <TextField
+            type="password"
+            id="verify password"
+            label="verify password"
+            autoComplete="Verify Password"
+            required
+            error={verifyPasswordError}
+            value={verifyPassword}
+            onChange={(e) => setVerifyPassword(e.target.value)}
+            helperText={verifyPasswordError && "Must match password"}
+          ></TextField>
+        )}
+        {loginRegister === 1 && (
+          <TextField
+            id="username"
+            label="username"
+            autoComplete="Username"
+            required
+            error={usernameError}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          ></TextField>
+        )}
+        <Button variant="contained" type="submit" onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Box>
+    </form>
   );
 };
 
