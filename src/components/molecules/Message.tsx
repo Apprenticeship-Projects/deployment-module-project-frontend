@@ -5,9 +5,19 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import MessageContext from "../../context/MessageContext";
 import {MessageProps} from "../../typings/types";
+import styled from "@emotion/styled";
 
 const Message = (props: MessageProps) => {
-  return <Box key={props.key}>{props.content}</Box>;
+  return (
+    <Box
+      key={props.key}
+      sx={{
+        borderStyle: "solid",
+      }}
+    >
+      {props.content}
+    </Box>
+  );
 };
 
 export default Message;
