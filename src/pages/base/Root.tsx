@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Outlet, useLocation} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {GetUserResponseData} from "../../typings/types";
 import SocketProvider from "../../components/providers/SocketProvider";
 import UserContext from "../../context/UserContext";
@@ -10,12 +10,16 @@ import HeaderAppBar from "../../components/organisms/HeaderAppBar";
 const Root = () => {
   const location = useLocation();
   const [user, setUser] = useState<GetUserResponseData | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getSession()
       .then(
         (session) => {
           if (!session.loggedIn) {
+            if (location.pathname !== "/") {
+              navigate("/");
+            }
             return;
           }
           return getUser();
@@ -30,7 +34,7 @@ const Root = () => {
         setUser(response.data);
       })
       .catch(console.error);
-  }, [location]);
+  }, [location, navigate]);
 
   return (
     <UserContext.Provider value={user}>

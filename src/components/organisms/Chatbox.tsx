@@ -19,21 +19,20 @@ const ChatBox = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "space-between",
-        justifyContent: "flex-end",
+        justifyContent: "flex-start",
+        maxHeight: "80vh",
       }}
     >
       <Box
         sx={{
-          height: "750px",
-          // maxHeight: "750px",
+          height: "100%",
           overflowY: "scroll",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "space-around",
-          justifyContent: "flex-start",
+          flexDirection: "column-reverse",
+          alignItems: "space-between",
         }}
       >
-        {messageData.map((message) => {
+        {[...messageData].reverse().map((message) => {
           return <Message key={message.id} {...message} />;
         })}
       </Box>
@@ -49,7 +48,7 @@ const ChatBox = () => {
         container
         spacing={2}
       >
-        <Grid item xs={8}>
+        <Grid item xs={10}>
           <TextField
             sx={{width: "100%"}}
             id="message-input"

@@ -20,6 +20,9 @@ const HeaderAppBar = () => {
     <Box sx={{flexGrow: 1}}>
       <AppBar position="static" sx={{justifyContent: "flex-end"}}>
         <Toolbar>
+          <Button color="inherit" href="/channels">
+            Channels
+          </Button>
           <Button color="inherit" sx={{marginLeft: "auto"}} onClick={handleSubmit}>
             Logout
           </Button>
