@@ -58,4 +58,5 @@ export interface MessageProps {
   editedAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
+  key: number;
 }

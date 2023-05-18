@@ -2,7 +2,7 @@ import {api} from "./api";
 
 export async function getAllChannelMessages(channelId: number) {
   //Get all messages from specific channel
-  const response = await api.get(`/message/${channelId}`, {
+  const response = await api.get(`/message/${channelId}/all`, {
     withCredentials: true,
   });
 

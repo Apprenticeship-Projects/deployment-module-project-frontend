@@ -32,8 +32,8 @@ const ChatBox = (props: ChatBoxProps) => {
         }}
       >
         {messageData.channels.hasOwnProperty(props.activeChannel) ? (
-          messageData.channels[props.activeChannel].messages.map((message) => {
-            const props = {content: message.content, user: message.user.username};
+          messageData.channels[props.activeChannel].messages.map((message, index) => {
+            const props = {content: message.content, user: message.user.username, key: index};
             return <Message {...props} />;
           })
         ) : (

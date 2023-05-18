@@ -33,6 +33,7 @@ const MessageProvider = ({children}: {children?: React.ReactNode}) => {
     }
 
     if (user) {
+      console.log(user);
       user.channels.forEach(handleGetChannelMessages);
     }
   }, [messages, user]);

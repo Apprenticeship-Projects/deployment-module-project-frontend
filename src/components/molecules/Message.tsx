@@ -7,11 +7,7 @@ import MessageContext from "../../context/MessageContext";
 import {MessageProps} from "../../typings/types";
 
 const Message = (props: MessageProps) => {
-  return (
-    <Box>
-      <TextField>{props.content}</TextField>
-    </Box>
-  );
+  return <Box key={props.key}>{props.content}</Box>;
 };
 
 export default Message;

@@ -18,7 +18,6 @@ const ChannelBox = (props: ChannelBoxProps) => {
         {Object.entries(messageData.channels).map(([key, channel]) => (
           <ListItem
             key={key}
-            value={key}
             disablePadding
             onClick={(e) => {
               props.setActiveChannel(e.currentTarget.value);
