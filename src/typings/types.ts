@@ -54,13 +54,3 @@ export interface ChatBoxProps {
 export interface MessageProviderProps {
   activeChannel: number;
 }
-
-export interface MessageProps {
-  content: string;
-  user: string;
-  isEdited?: boolean;
-  editedAt?: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
-  key: number;
-}

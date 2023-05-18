@@ -1,8 +1,8 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import {MessageProps} from "../../typings/types";
+import {IncomingMessage} from "../../socket";
 
-const Message = (props: MessageProps) => {
+const Message = (props: IncomingMessage) => {
   return <Box>{props.content}</Box>;
 };
 

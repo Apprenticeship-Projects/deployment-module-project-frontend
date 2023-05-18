@@ -32,8 +32,7 @@ const ChatBox = () => {
         }}
       >
         {messageData.map((message, index) => {
-          const props = {content: message.content, user: message.user.username, key: index};
-          return <Message {...props} />;
+          return <Message {...message} />;
         })}
       </Box>
       <Grid container spacing={2}>
