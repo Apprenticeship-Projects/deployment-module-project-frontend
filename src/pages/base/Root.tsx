@@ -3,8 +3,8 @@ import {Outlet, useLocation} from "react-router-dom";
 import {GetUserResponseData} from "../../typings/types";
 import SocketProvider from "../../components/providers/SocketProvider";
 import UserContext from "../../context/UserContext";
-import { getUser } from "../../api/userRoute";
-import { getSession } from "../../api/sessionRoute";
+import {getUser} from "../../api/userRoute";
+import {getSession} from "../../api/sessionRoute";
 
 const Root = () => {
   const location = useLocation();
@@ -12,16 +12,21 @@ const Root = () => {
 
   useEffect(() => {
     getSession()
-      .then(session => {
-        if (!session.loggedIn) {
-          return
+      .then(
+        (session) => {
+          if (!session.loggedIn) {
+            return;
+          }
+          return getUser();
+        },
+        () => {
+          return;
         }
-        return getUser()
-      }, () => {return})
+      )
       .then((response) => {
         if (!response) return;
-        
-        setUser(response.data)
+
+        setUser(response.data);
       })
       .catch(console.error);
   }, [location]);

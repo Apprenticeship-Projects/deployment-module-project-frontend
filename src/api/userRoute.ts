@@ -1,12 +1,20 @@
 import {api} from "./api";
 import {GetUserResponseData, UpdateUserData} from "../typings/types";
+import axios from "axios";
 
 export async function registerUser(username: string, email: string, password: string) {
-  const response = await api.post(
-    `/user/register`,
-    {username: username, password: password, email: email});
-
-  return response.status;
+  try {
+    await api.post(`/user/register`, {username: username, password: password, email: email});
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err)) {
+      const message = err.response?.data.message;
+      if (message != null) {
+        return {error: true, message};
+      }
+    }
+    return {error: true, message: "An error occurred"};
+  }
+  return {error: false};
 }
 
 export async function getUser() {
