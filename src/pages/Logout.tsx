@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from "react";
-import { logout } from "../api/sessionRoute";
-import { Navigate } from "react-router-dom";
+import {logout} from "../api/sessionRoute";
+import {Navigate} from "react-router-dom";
 
 const Logout = () => {
   const [loggedOut, setLoggedOut] = useState(false);
 
   useEffect(() => {
-    logout().then(() => {
-      setLoggedOut(true)
-    }).catch(console.error)
-  }, [])
+    logout()
+      .then(() => {
+        setLoggedOut(true);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <div>

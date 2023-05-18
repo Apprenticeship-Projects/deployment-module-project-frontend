@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
@@ -17,18 +16,19 @@ const HeaderAppBar = () => {
   }
 
   return (
-    <Box sx={{flexGrow: 1}}>
-      <AppBar position="static" sx={{justifyContent: "flex-end"}}>
-        <Toolbar>
-          <Button color="inherit" href="/channels">
-            Channels
-          </Button>
-          <Button color="inherit" sx={{marginLeft: "auto"}} onClick={handleSubmit}>
-            Logout
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar
+      position="fixed"
+      sx={{justifyContent: "flex-end", zIndex: (theme) => theme.zIndex.drawer + 1}}
+    >
+      <Toolbar>
+        <Button color="inherit" href="/channels">
+          Channels
+        </Button>
+        <Button color="inherit" sx={{marginLeft: "auto"}} onClick={handleSubmit}>
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };
 

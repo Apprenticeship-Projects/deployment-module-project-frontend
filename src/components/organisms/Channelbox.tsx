@@ -14,7 +14,7 @@ const ChannelBox = () => {
   const userData = useContext(UserContext);
 
   return (
-    <Drawer variant="permanent">
+    <Drawer variant="permanent" sx={{[`& .MuiDrawer-paper`]: {top: "64px"}}}>
       <List>
         {userData?.channels.map((channel) => (
           <ListItem
