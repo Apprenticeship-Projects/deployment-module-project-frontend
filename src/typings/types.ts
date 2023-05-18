@@ -1,5 +1,3 @@
-import {Dispatch, SetStateAction} from "react";
-
 export interface UserData {
   username: string;
   email: string;
@@ -40,17 +38,4 @@ export interface UpdateChannelData {
 export interface AlertError {
   error: boolean;
   message?: string;
-}
-
-export interface ChannelBoxProps {
-  activeChannel: number;
-  setActiveChannel: Dispatch<SetStateAction<number>>;
-}
-
-export interface ChatBoxProps {
-  activeChannel: number;
-}
-
-export interface MessageProviderProps {
-  activeChannel: number;
 }
