@@ -31,8 +31,8 @@ const ChatBox = () => {
           justifyContent: "flex-end",
         }}
       >
-        {messageData.map((message, index) => {
-          return <Message {...message} />;
+        {messageData.map((message) => {
+          return <Message key={message.id} {...message} />;
         })}
       </Box>
       <Grid container spacing={2}>
