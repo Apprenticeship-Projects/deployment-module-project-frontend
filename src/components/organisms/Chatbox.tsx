@@ -48,7 +48,7 @@ const ChatBox = () => {
         container
         spacing={2}
       >
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <TextField
             sx={{width: "100%"}}
             id="message-input"
