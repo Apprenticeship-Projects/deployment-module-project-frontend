@@ -30,14 +30,14 @@ const ChatBox = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "space-between",
-          justifyContent: "flex-end",
+          justifyContent: "flex-start",
         }}
       >
         {messageData.map((message) => {
           return <Message key={message.id} {...message} />;
         })}
       </Box>
-      <Grid container spacing={2}>
+      <Grid sx={{alignSelf: "flex-end", marginTop: "2em"}} container spacing={2}>
         <Grid item xs={10}>
           <TextField
             sx={{width: "100%"}}
