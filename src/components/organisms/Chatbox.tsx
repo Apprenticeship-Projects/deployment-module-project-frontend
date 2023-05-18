@@ -28,12 +28,11 @@ const ChatBox = () => {
           height: "100%",
           overflowY: "scroll",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "column-reverse",
           alignItems: "space-between",
-          justifyContent: "flex-start",
         }}
       >
-        {messageData.map((message) => {
+        {[...messageData].reverse().map((message) => {
           return <Message key={message.id} {...message} />;
         })}
       </Box>
