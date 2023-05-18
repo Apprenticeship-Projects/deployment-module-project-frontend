@@ -8,6 +8,7 @@ export interface IncomingMessage {
   editedAt: Date;
   createdAt: Date;
   user: {
+    id: string;
     username: string;
   };
 }
