@@ -24,9 +24,9 @@ const ChatBox = () => {
     >
       <Box
         sx={{
-          // height: "750px",
-          maxHeight: "750px",
-          overflow: "auto",
+          height: "750px",
+          // maxHeight: "750px",
+          overflowY: "scroll",
           display: "flex",
           flexDirection: "column",
           alignItems: "space-between",

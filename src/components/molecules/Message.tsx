@@ -8,6 +8,8 @@ import {IncomingMessage} from "../../socket";
 const Message = (props: IncomingMessage) => {
   const user = useContext(UserContext);
 
+  console.log(props);
+
   return (
     <Box
       key={props.id}
@@ -24,7 +26,8 @@ const Message = (props: IncomingMessage) => {
         display: "inline-block",
       }}
     >
-      {props.content}
+      <p>{props.content}</p>
+      <i>{props.user.username}</i>
     </Box>
   );
 };
