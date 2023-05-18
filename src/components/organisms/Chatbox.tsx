@@ -1,16 +1,18 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useContext} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import MessageContext from "../../context/MessageContext";
 import Message from "../molecules/Message";
-import {ChatBoxProps} from "../../typings/types";
 import {postMessage} from "../../api/messageRoute";
+import ChannelContext from "../../context/ChannelContext";
 
-const ChatBox = (props: ChatBoxProps) => {
+const ChatBox = () => {
+  const activeChannel = useContext(ChannelContext);
   const [message, setMessage] = useState("");
   const messageData = useContext(MessageContext);
+
   return (
     <Box
       sx={{
@@ -51,7 +53,7 @@ const ChatBox = (props: ChatBoxProps) => {
             variant="contained"
             onClick={() => {
               if (message) {
-                postMessage(props.activeChannel, message).then((response) => {
+                postMessage(activeChannel.id, message).then((response) => {
                   setMessage("");
                 });
               }
