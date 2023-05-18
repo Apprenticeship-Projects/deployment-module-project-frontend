@@ -51,6 +51,10 @@ export interface ChatBoxProps {
   activeChannel: number;
 }
 
+export interface MessageProviderProps {
+  activeChannel: number;
+}
+
 export interface MessageProps {
   content: string;
   user: string;

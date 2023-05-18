@@ -16,14 +16,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<Index />} />
-        <Route
-          path="/channels"
-          element={
-            <MessageProvider>
-              <Channels />
-            </MessageProvider>
-          }
-        />
+        <Route path="/channels" element={<Channels />} />
       </Route>
     )
   );

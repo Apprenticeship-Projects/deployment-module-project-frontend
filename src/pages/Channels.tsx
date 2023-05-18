@@ -2,13 +2,15 @@ import React, {useState} from "react";
 import ChannelBox from "../components/organisms/Channelbox";
 import ChatBox from "../components/organisms/Chatbox";
 import Grid from "@mui/material/Grid";
-import {ChannelBoxProps, ChatBoxProps} from "../typings/types";
+import {ChannelBoxProps, ChatBoxProps, MessageProviderProps} from "../typings/types";
+import MessageProvider from "../components/providers/MessageProvider";
 
 const Channels = () => {
   const [activeChannel, setActiveChannel] = useState(1);
 
   const channelBoxProps: ChannelBoxProps = {activeChannel, setActiveChannel};
   const chatBoxProps: ChatBoxProps = {activeChannel};
+  const messageProviderProps: MessageProviderProps = {activeChannel: activeChannel};
 
   return (
     <Grid container spacing={2}>
@@ -16,7 +18,9 @@ const Channels = () => {
         <ChannelBox {...channelBoxProps} />
       </Grid>
       <Grid item xs={8}>
-        <ChatBox {...chatBoxProps} />
+        <MessageProvider {...messageProviderProps}>
+          <ChatBox {...chatBoxProps} />
+        </MessageProvider>
       </Grid>
     </Grid>
   );

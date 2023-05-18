@@ -11,8 +11,6 @@ import {postMessage} from "../../api/messageRoute";
 const ChatBox = (props: ChatBoxProps) => {
   const [message, setMessage] = useState("");
   const messageData = useContext(MessageContext);
-  console.log(messageData.channels);
-  console.log(messageData.channels.hasOwnProperty(props.activeChannel));
   return (
     <Box
       sx={{
@@ -31,14 +29,10 @@ const ChatBox = (props: ChatBoxProps) => {
           justifyContent: "flex-end",
         }}
       >
-        {messageData.channels.hasOwnProperty(props.activeChannel) ? (
-          messageData.channels[props.activeChannel].messages.map((message, index) => {
-            const props = {content: message.content, user: message.user.username, key: index};
-            return <Message {...props} />;
-          })
-        ) : (
-          <></>
-        )}
+        {messageData.map((message, index) => {
+          const props = {content: message.content, user: message.user.username, key: index};
+          return <Message {...props} />;
+        })}
       </Box>
       <Grid container spacing={2}>
         <Grid item xs={8}>

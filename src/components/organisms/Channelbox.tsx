@@ -8,16 +8,17 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import MessageContext from "../../context/MessageContext";
 import {ChannelBoxProps} from "../../typings/types";
+import UserContext from "../../context/UserContext";
 
 const ChannelBox = (props: ChannelBoxProps) => {
-  const messageData = useContext(MessageContext);
+  const userData = useContext(UserContext);
 
   return (
     <Drawer variant="permanent">
       <List>
-        {Object.entries(messageData.channels).map(([key, channel]) => (
+        {userData?.channels.map((channel) => (
           <ListItem
-            key={key}
+            key={channel.id}
             disablePadding
             onClick={(e) => {
               props.setActiveChannel(e.currentTarget.value);
