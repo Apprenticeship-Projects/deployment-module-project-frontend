@@ -34,7 +34,7 @@ const Root = () => {
         setUser(response.data);
       })
       .catch(console.error);
-  }, [location]);
+  }, [location, navigate]);
 
   return (
     <UserContext.Provider value={user}>
