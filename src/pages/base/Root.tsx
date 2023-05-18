@@ -5,6 +5,7 @@ import SocketProvider from "../../components/providers/SocketProvider";
 import UserContext from "../../context/UserContext";
 import {getUser} from "../../api/userRoute";
 import {getSession} from "../../api/sessionRoute";
+import HeaderAppBar from "../../components/organisms/HeaderAppBar";
 
 const Root = () => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const Root = () => {
 
   return (
     <UserContext.Provider value={user}>
+      <HeaderAppBar />
       <SocketProvider>
         <Outlet />
       </SocketProvider>

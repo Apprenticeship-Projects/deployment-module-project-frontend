@@ -107,7 +107,7 @@ const LoginRegisterForm = () => {
           alignItems: "stretch",
           justifyContent: "center",
           rowGap: "10px",
-          margin: "20% auto",
+          margin: "10% auto",
         }}
       >
         <Tabs value={loginRegister} onChange={handleChange}>

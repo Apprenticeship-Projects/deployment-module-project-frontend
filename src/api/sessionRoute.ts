@@ -26,7 +26,10 @@ export async function login(email: string, password: string) {
 
 export async function logout() {
   //Delete the session
-  const response = await api.delete(`/session`, {});
-
-  return response.status;
+  try {
+    await api.delete(`/session`, {});
+  } catch {
+    return {error: true, message: "An error occurred"};
+  }
+  return {error: false};
 }
