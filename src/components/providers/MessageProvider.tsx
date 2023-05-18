@@ -36,29 +36,10 @@ const MessageProvider = ({
 
   useEffect(() => {
     if (user) {
-      // setMessages(draft => {
-      //   getAllChannelMessages(activeChannel).then((response) =>{
-      //     draft.channels[activeChannel] = {name: response.data.channel.name, messages: response.data.channelMessages.data};
-      //   })
-
       getAllChannelMessages(activeChannel).then((response) => {
         // console.log(response)
         setMessages(response.data);
       });
-      // let promiseList = user.channels.map(async channel => {
-      //   const channelMessages = await getAllChannelMessages(channel.id)
-      //   return {channel, channelMessages}
-      // });
-      // Promise.all(promiseList).then(responseList => {
-      //   let update: MessageContextType = {channels:{}}
-      //   responseList.forEach((response) => {
-      //     update.channels[response.channel.id] = {name: response.channel.name, messages: response.channelMessages.data};
-      //   })
-      //   console.log(update)
-      //   draft = update;
-      // })
-
-      // });
     }
   }, [activeChannel, setMessages, user]);
 
