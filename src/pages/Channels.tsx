@@ -9,13 +9,13 @@ const Channels = () => {
   const [activeChannel, setActiveChannel] = useState(1);
 
   return (
-    <Grid container spacing={2}>
-      <ChannelContext.Provider
-        value={{
-          set: setActiveChannel,
-          id: activeChannel,
-        }}
-      >
+    <ChannelContext.Provider
+      value={{
+        set: setActiveChannel,
+        id: activeChannel,
+      }}
+    >
+      <Grid container spacing={2} height="100%" maxHeight="90vh" alignItems="flex-end">
         <Grid item xs={2}>
           <ChannelBox />
         </Grid>
@@ -24,8 +24,8 @@ const Channels = () => {
             <ChatBox />
           </MessageProvider>
         </Grid>
-      </ChannelContext.Provider>
-    </Grid>
+      </Grid>
+    </ChannelContext.Provider>
   );
 };
 
