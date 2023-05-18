@@ -7,7 +7,6 @@ import {IncomingMessage} from "../../socket";
 import UserContext from "../../context/UserContext";
 import SocketContext from "../../context/SocketContext";
 import {useImmer} from "use-immer";
-import {MessageProviderProps} from "../../typings/types";
 
 const MessageProvider = ({
   children,
@@ -33,7 +32,7 @@ const MessageProvider = ({
     return () => {
       socket.socket.off("messageSent", handleMessageSent);
     };
-  }, []);
+  }, [setMessages, socket.socket]);
 
   useEffect(() => {
     if (user) {
@@ -42,7 +41,7 @@ const MessageProvider = ({
         setMessages(response.data);
       });
     }
-  }, [user]);
+  }, [activeChannel, setMessages, user]);
 
   return <MessageContext.Provider value={messages}>{children}</MessageContext.Provider>;
 };

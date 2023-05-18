@@ -1,3 +1,4 @@
+import socket from "../socket";
 import {api} from "./api";
 import axios from "axios";
 
@@ -13,6 +14,8 @@ export async function login(email: string, password: string) {
   //Get a session token from the backend
   try {
     await api.post(`/session`, {email: email, password: password});
+    // we want to reconnect
+    socket.disconnect();
   } catch (err: unknown) {
     if (axios.isAxiosError(err)) {
       if (err.response?.status === 401) {
