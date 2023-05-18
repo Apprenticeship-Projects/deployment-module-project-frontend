@@ -29,7 +29,7 @@ const ChatBox = () => {
           overflowY: "scroll",
           display: "flex",
           flexDirection: "column",
-          alignItems: "space-between",
+          alignItems: "space-around",
           justifyContent: "flex-start",
         }}
       >
@@ -37,7 +37,18 @@ const ChatBox = () => {
           return <Message key={message.id} {...message} />;
         })}
       </Box>
-      <Grid sx={{alignSelf: "flex-end", marginTop: "2em"}} container spacing={2}>
+      <Grid
+        sx={{
+          alignSelf: "flex-end",
+          marginTop: "2em",
+          position: "fixed",
+          left: "10vw",
+          bottom: "1vh",
+          width: "100%",
+        }}
+        container
+        spacing={2}
+      >
         <Grid item xs={8}>
           <TextField
             sx={{width: "100%"}}
