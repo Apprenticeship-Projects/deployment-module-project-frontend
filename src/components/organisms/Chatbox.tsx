@@ -22,7 +22,9 @@ const ChatBox = (props: ChatBoxProps) => {
     >
       <Box
         sx={{
-          height: "750px",
+          // height: "750px",
+          maxHeight: "750px",
+          overflow: "auto",
           display: "flex",
           flexDirection: "column",
           alignItems: "space-between",
