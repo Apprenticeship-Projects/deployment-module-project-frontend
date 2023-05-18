@@ -10,8 +10,8 @@ const SocketProvider = ({children}: {children?: React.ReactNode}) => {
     const onDisconnect = (reason: string) => {
       setConnected(false);
 
-      if (reason === "io server disconnect") {
-        // the disconnection was initiated by the server, you need to reconnect manually
+      if (reason === "io server disconnect" || reason === "io client disconnect") {
+        // the disconnection was forced, you need to reconnect manually
         socket.connect();
       }
     };

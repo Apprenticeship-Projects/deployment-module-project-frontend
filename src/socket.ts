@@ -32,7 +32,8 @@ interface ClientToServerEvents {}
 export type Socket = IOSocket<ServerToClientEvents, ClientToServerEvents>;
 
 const socket: Socket = io(process.env.REACT_APP_API_ORIGIN as string, {
-  withCredentials: true
+  withCredentials: true,
+  reconnection: true,
 });
 
 export default socket;
