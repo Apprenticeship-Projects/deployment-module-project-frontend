@@ -2,11 +2,11 @@ import React, {useState, useContext} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import MessageContext from "../../context/MessageContext";
 import Message from "../molecules/Message";
 import {postMessage} from "../../api/messageRoute";
 import ChannelContext from "../../context/ChannelContext";
+import {drawerWidth} from "../../constants/sizes";
 
 const ChatBox = () => {
   const activeChannel = useContext(ChannelContext);
@@ -14,7 +14,12 @@ const ChatBox = () => {
   const messageData = useContext(MessageContext);
 
   return (
-    <Grid container direction="column" gap={2} paddingLeft="150px" sx={{height: "100%"}}>
+    <Grid
+      container
+      direction="column"
+      gap={2}
+      sx={{height: "100%", flexGrow: 1, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
+    >
       <Grid
         item
         xs

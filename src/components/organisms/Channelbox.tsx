@@ -8,8 +8,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import UserContext from "../../context/UserContext";
 import ChannelContext from "../../context/ChannelContext";
-
-const drawerWidth = 240;
+import {Box} from "@mui/material";
+import {drawerWidth, navHeight} from "../../constants/sizes";
 
 interface Props {
   window?: () => Window;
@@ -49,7 +49,7 @@ const ChannelBox = (props: Props) => {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <>
+    <Box sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}>
       <Drawer
         container={container}
         variant="temporary"
@@ -73,7 +73,7 @@ const ChannelBox = (props: Props) => {
       >
         {drawer}
       </Drawer>
-    </>
+    </Box>
   );
 };
 
