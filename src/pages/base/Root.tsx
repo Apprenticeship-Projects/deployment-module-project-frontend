@@ -10,18 +10,14 @@ import HeaderAppBar from "../../components/organisms/HeaderAppBar";
 const Root = () => {
   const location = useLocation();
   const [user, setUser] = useState<GetUserResponseData | null>(null);
+  const [checked, setChecked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     getSession()
       .then(
         (session) => {
-          if (!session.loggedIn) {
-            if (location.pathname !== "/") {
-              navigate("/");
-            }
-            return;
-          }
+          if (!session.loggedIn) return;
           return getUser();
         },
         () => {
@@ -33,11 +29,22 @@ const Root = () => {
 
         setUser(response.data);
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setChecked(true);
+      });
   }, [location, navigate]);
 
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider
+      value={{
+        data: user,
+        checked,
+        logout: () => {
+          navigate("/logout");
+        },
+      }}
+    >
       <HeaderAppBar />
       <SocketProvider>
         <Outlet />

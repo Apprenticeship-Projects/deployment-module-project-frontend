@@ -17,7 +17,7 @@ interface Props {
 
 const ChannelBox = (props: Props) => {
   const activeChannel = useContext(ChannelContext);
-  const userData = useContext(UserContext);
+  const user = useContext(UserContext);
 
   const {window} = props;
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -25,7 +25,7 @@ const ChannelBox = (props: Props) => {
   const drawer = (
     <>
       <List>
-        {userData?.channels.map((channel) => (
+        {user.data?.channels.map((channel) => (
           <ListItem
             key={channel.id}
             disablePadding
