@@ -2,7 +2,6 @@ import React, {useState, useContext} from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import MessageContext from "../../context/MessageContext";
 import Message from "../molecules/Message";
 import {postMessage} from "../../api/messageRoute";
@@ -34,7 +33,7 @@ const ChatBox = () => {
           })}
       </Grid>
       <Grid item xs="auto">
-        <Grid container gap={2} padding={2}>
+        <Grid container gap={2} padding={2} component="form">
           <Grid item xs>
             <TextField
               sx={{width: "100%"}}
