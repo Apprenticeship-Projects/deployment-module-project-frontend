@@ -44,6 +44,7 @@ const ChatBox = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => {
+                if (e.key !== "Enter") return;
                 e.preventDefault();
                 if (message) {
                   postMessage(activeChannel.id, message).then((response) => {
