@@ -11,6 +11,9 @@ const Root = () => {
   const location = useLocation();
   const [user, setUser] = useState<GetUserResponseData | null>(null);
   const [checked, setChecked] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,9 +48,9 @@ const Root = () => {
         },
       }}
     >
-      <HeaderAppBar />
+      <HeaderAppBar handleDrawerToggle={handleDrawerToggle} />
       <SocketProvider>
-        <Outlet />
+        <Outlet context={{mobileOpen, handleDrawerToggle}} />
       </SocketProvider>
     </UserContext.Provider>
   );
