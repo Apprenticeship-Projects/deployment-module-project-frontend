@@ -17,16 +17,10 @@ const Channels = () => {
           id: activeChannel,
         }}
       >
-        <Grid container spacing={2} height="100%" maxHeight="90vh" alignItems="flex-end">
-          <Grid item xs={2}>
-            <ChannelBox />
-          </Grid>
-          <Grid item xs={8}>
-            <MessageProvider>
-              <ChatBox />
-            </MessageProvider>
-          </Grid>
-        </Grid>
+        <ChannelBox />
+        <MessageProvider>
+          <ChatBox />
+        </MessageProvider>
       </ChannelContext.Provider>
     </PageProtection>
   );

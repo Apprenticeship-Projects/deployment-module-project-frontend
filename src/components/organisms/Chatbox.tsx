@@ -14,45 +14,28 @@ const ChatBox = () => {
   const messageData = useContext(MessageContext);
 
   return (
-    <form>
-      <Box
+    <Grid container direction="column" gap={2} paddingLeft="150px" sx={{height: "100%"}}>
+      <Grid
+        item
+        xs
         sx={{
+          overflowY: "scroll",
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "column-reverse",
           alignItems: "space-between",
-          justifyContent: "flex-start",
-          maxHeight: "80vh",
+          height: "100%",
         }}
       >
-        <Box
-          sx={{
-            height: "100%",
-            overflowY: "scroll",
-            display: "flex",
-            flexDirection: "column-reverse",
-            alignItems: "space-between",
-          }}
-        >
-          {[...messageData]
-            .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-            .reverse()
-            .map((message) => {
-              return <Message key={message.id} {...message} />;
-            })}
-        </Box>
-        <Grid
-          sx={{
-            alignSelf: "flex-end",
-            marginTop: "2em",
-            position: "fixed",
-            left: "10vw",
-            bottom: "1vh",
-            width: "100%",
-          }}
-          container
-          spacing={2}
-        >
-          <Grid item xs={8}>
+        {[...messageData]
+          .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+          .reverse()
+          .map((message) => {
+            return <Message key={message.id} {...message} />;
+          })}
+      </Grid>
+      <Grid item xs="auto">
+        <Grid container gap={2} padding={2}>
+          <Grid item xs>
             <TextField
               sx={{width: "100%"}}
               id="message-input"
@@ -60,11 +43,19 @@ const ChatBox = () => {
               autoComplete="Message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => {
+                e.preventDefault();
+                if (message) {
+                  postMessage(activeChannel.id, message).then((response) => {
+                    setMessage("");
+                  });
+                }
+              }}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs="auto">
             <Button
-              sx={{width: "100%", height: "100%"}}
+              sx={{width: "100px", height: "100%"}}
               variant="contained"
               type="submit"
               onClick={(event) => {
@@ -80,8 +71,8 @@ const ChatBox = () => {
             </Button>
           </Grid>
         </Grid>
-      </Box>
-    </form>
+      </Grid>
+    </Grid>
   );
 };
 
