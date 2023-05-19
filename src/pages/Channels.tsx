@@ -4,6 +4,8 @@ import ChatBox from "../components/organisms/Chatbox";
 import MessageProvider from "../components/providers/MessageProvider";
 import ChannelContext from "../context/ChannelContext";
 import PageProtection from "../components/organisms/PageProtection";
+import {Box} from "@mui/material";
+import {navHeight} from "../constants/sizes";
 
 const Channels = () => {
   const [activeChannel, setActiveChannel] = useState(1);
@@ -16,10 +18,12 @@ const Channels = () => {
           id: activeChannel,
         }}
       >
-        <ChannelBox />
-        <MessageProvider>
-          <ChatBox />
-        </MessageProvider>
+        <Box sx={{display: "flex", marginTop: `${navHeight}px`}}>
+          <ChannelBox />
+          <MessageProvider>
+            <ChatBox />
+          </MessageProvider>
+        </Box>
       </ChannelContext.Provider>
     </PageProtection>
   );
