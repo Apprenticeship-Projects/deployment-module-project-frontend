@@ -33,9 +33,12 @@ const ChatBox = () => {
             alignItems: "space-between",
           }}
         >
-          {[...messageData].reverse().map((message) => {
-            return <Message key={message.id} {...message} />;
-          })}
+          {[...messageData]
+            .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+            .reverse()
+            .map((message) => {
+              return <Message key={message.id} {...message} />;
+            })}
         </Box>
         <Grid
           sx={{
