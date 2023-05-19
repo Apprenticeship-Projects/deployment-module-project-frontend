@@ -20,23 +20,28 @@ const Message = (props: IncomingMessage) => {
 
   return (
     <Box
-      key={props.id}
       sx={{
-        // borderStyle: "solid",
-        backgroundColor:
-          user.data?.username === props.user.username
-            ? "rgba(25, 130, 252, 0.3)"
-            : "rgba(67, 204, 71, 0.3)",
-        width: "25em",
         alignSelf: user.data?.username === props.user.username ? "flex-end" : "flex-start",
-        borderRadius: "10px",
-        margin: "5px",
-        padding: "10px",
         display: "inline-block",
+        minWidth: "10em",
+        maxWidth: "50%",
       }}
     >
       <Username>{props.user.username}</Username>
-      <Paragraph>{props.content}</Paragraph>
+      <Box
+        key={props.id}
+        sx={{
+          backgroundColor:
+            user.data?.username === props.user.username
+              ? "rgba(25, 130, 252, 0.3)"
+              : "rgba(67, 204, 71, 0.3)",
+          borderRadius: "10px",
+          margin: "5px",
+          padding: "10px",
+        }}
+      >
+        <Paragraph>{props.content}</Paragraph>
+      </Box>
     </Box>
   );
 };

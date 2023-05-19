@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import ChannelBox from "../components/organisms/Channelbox";
 import ChatBox from "../components/organisms/Chatbox";
-
 import MessageProvider from "../components/providers/MessageProvider";
 import ChannelContext from "../context/ChannelContext";
 import PageProtection from "../components/organisms/PageProtection";

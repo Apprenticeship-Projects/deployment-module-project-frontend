@@ -39,7 +39,7 @@ const ChatBox = () => {
           })}
       </Grid>
       <Grid item xs="auto">
-        <Grid container gap={2} padding={2}>
+        <Grid container gap={2} padding={2} component="form">
           <Grid item xs>
             <TextField
               sx={{width: "100%"}}
