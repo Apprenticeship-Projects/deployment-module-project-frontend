@@ -98,77 +98,76 @@ const LoginRegisterForm = () => {
   };
 
   return (
-    <form>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: "50%",
-          alignItems: "stretch",
-          justifyContent: "center",
-          rowGap: "10px",
-          margin: "10% auto",
-        }}
-      >
-        <Tabs value={loginRegister} onChange={handleChange}>
-          <Tab label="Log in" {...a11yProps(0)} />
-          <Tab label="Register" {...a11yProps(1)} />
-        </Tabs>
-        {loginRegister === 0 && loginError.error && (
-          <Alert severity="error">{loginError.message}</Alert>
-        )}
-        {loginRegister === 1 && registerError.error && (
-          <Alert severity="error">{registerError.message}</Alert>
-        )}
-        <TextField
-          type="email"
-          id="email"
-          label="email"
-          autoComplete="Email"
-          required
-          error={emailError}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        ></TextField>
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        width: "90%",
+        maxWidth: "500px",
+        alignItems: "stretch",
+        justifyContent: "center",
+        rowGap: "10px",
+      }}
+    >
+      <Tabs value={loginRegister} onChange={handleChange}>
+        <Tab label="Log in" {...a11yProps(0)} />
+        <Tab label="Register" {...a11yProps(1)} />
+      </Tabs>
+      {loginRegister === 0 && loginError.error && (
+        <Alert severity="error">{loginError.message}</Alert>
+      )}
+      {loginRegister === 1 && registerError.error && (
+        <Alert severity="error">{registerError.message}</Alert>
+      )}
+      <TextField
+        type="email"
+        id="email"
+        label="email"
+        autoComplete="Email"
+        required
+        error={emailError}
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      ></TextField>
+      <TextField
+        type="password"
+        id="password"
+        label="password"
+        autoComplete="Password"
+        required
+        error={passwordError}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      ></TextField>
+      {loginRegister === 1 && (
         <TextField
           type="password"
-          id="password"
-          label="password"
-          autoComplete="Password"
+          id="verify password"
+          label="verify password"
+          autoComplete="Verify Password"
           required
-          error={passwordError}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          error={verifyPasswordError}
+          value={verifyPassword}
+          onChange={(e) => setVerifyPassword(e.target.value)}
+          helperText={verifyPasswordError && "Must match password"}
         ></TextField>
-        {loginRegister === 1 && (
-          <TextField
-            type="password"
-            id="verify password"
-            label="verify password"
-            autoComplete="Verify Password"
-            required
-            error={verifyPasswordError}
-            value={verifyPassword}
-            onChange={(e) => setVerifyPassword(e.target.value)}
-            helperText={verifyPasswordError && "Must match password"}
-          ></TextField>
-        )}
-        {loginRegister === 1 && (
-          <TextField
-            id="username"
-            label="username"
-            autoComplete="Username"
-            required
-            error={usernameError}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          ></TextField>
-        )}
-        <Button variant="contained" type="submit" onClick={handleSubmit}>
-          Submit
-        </Button>
-      </Box>
-    </form>
+      )}
+      {loginRegister === 1 && (
+        <TextField
+          id="username"
+          label="username"
+          autoComplete="Username"
+          required
+          error={usernameError}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        ></TextField>
+      )}
+      <Button variant="contained" type="submit" onClick={handleSubmit}>
+        Submit
+      </Button>
+    </Box>
   );
 };
 
