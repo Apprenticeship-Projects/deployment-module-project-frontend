@@ -6,15 +6,6 @@ import {logout} from "../../api/sessionRoute";
 import {useNavigate} from "react-router-dom";
 
 const HeaderAppBar = () => {
-  const navigate = useNavigate();
-
-  async function handleSubmit() {
-    const response = await logout();
-    if (!response.error) {
-      await navigate("/");
-    }
-  }
-
   return (
     <AppBar
       position="fixed"
@@ -24,7 +15,7 @@ const HeaderAppBar = () => {
         <Button color="inherit" href="/channels">
           Channels
         </Button>
-        <Button color="inherit" sx={{marginLeft: "auto"}} onClick={handleSubmit}>
+        <Button color="inherit" sx={{marginLeft: "auto"}} href="/logout">
           Logout
         </Button>
       </Toolbar>
