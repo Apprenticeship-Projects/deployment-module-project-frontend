@@ -67,7 +67,11 @@ const ChannelBox = (props: Props) => {
         variant="permanent"
         sx={{
           display: {xs: "none", sm: "block"},
-          "& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth},
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: drawerWidth,
+            marginTop: `${navHeight}px`,
+          },
         }}
         open
       >
