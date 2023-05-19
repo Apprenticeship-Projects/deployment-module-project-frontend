@@ -1,6 +1,5 @@
 import React, {useContext} from "react";
 import Box from "@mui/material/Box";
-import MessageContext from "../../context/MessageContext";
 import styled from "@emotion/styled";
 import UserContext from "../../context/UserContext";
 import {IncomingMessage} from "../../socket";
@@ -25,11 +24,11 @@ const Message = (props: IncomingMessage) => {
       sx={{
         // borderStyle: "solid",
         backgroundColor:
-          user?.username === props.user.username
+          user.data?.username === props.user.username
             ? "rgba(25, 130, 252, 0.3)"
             : "rgba(67, 204, 71, 0.3)",
         width: "25em",
-        alignSelf: user?.username === props.user.username ? "flex-end" : "flex-start",
+        alignSelf: user.data?.username === props.user.username ? "flex-end" : "flex-start",
         borderRadius: "10px",
         margin: "5px",
         padding: "10px",

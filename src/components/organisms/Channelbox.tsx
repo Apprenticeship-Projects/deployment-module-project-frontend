@@ -11,12 +11,12 @@ import ChannelContext from "../../context/ChannelContext";
 
 const ChannelBox = () => {
   const activeChannel = useContext(ChannelContext);
-  const userData = useContext(UserContext);
+  const user = useContext(UserContext);
 
   return (
     <Drawer variant="permanent" sx={{[`& .MuiDrawer-paper`]: {top: "64px"}}}>
       <List>
-        {userData?.channels.map((channel) => (
+        {user.data?.channels.map((channel) => (
           <ListItem
             key={channel.id}
             disablePadding
