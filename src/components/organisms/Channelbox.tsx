@@ -10,6 +10,7 @@ import UserContext from "../../context/UserContext";
 import ChannelContext from "../../context/ChannelContext";
 import {Box} from "@mui/material";
 import {drawerWidth, navHeight} from "../../constants/sizes";
+import {useOutletContext} from "react-router-dom";
 
 interface Props {
   window?: () => Window;
@@ -18,10 +19,13 @@ interface Props {
 const ChannelBox = (props: Props) => {
   const activeChannel = useContext(ChannelContext);
   const user = useContext(UserContext);
+  const {mobileOpen, handleDrawerToggle} = useOutletContext() as {
+    mobileOpen: boolean;
+    handleDrawerToggle: () => void;
+  };
 
   const {window} = props;
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+
   const drawer = (
     <>
       <List>
@@ -58,7 +62,11 @@ const ChannelBox = (props: Props) => {
         ModalProps={{keepMounted: true}}
         sx={{
           display: {xs: "block", sm: "none"},
-          "& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth},
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: drawerWidth,
+            marginTop: `${navHeight}px`,
+          },
         }}
       >
         {drawer}
