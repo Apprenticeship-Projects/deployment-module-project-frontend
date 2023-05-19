@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import Button from "@mui/material/Button";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -9,12 +9,21 @@ import Divider from "@mui/material/Divider";
 import UserContext from "../../context/UserContext";
 import ChannelContext from "../../context/ChannelContext";
 
-const ChannelBox = () => {
+const drawerWidth = 240;
+
+interface Props {
+  window?: () => Window;
+}
+
+const ChannelBox = (props: Props) => {
   const activeChannel = useContext(ChannelContext);
   const userData = useContext(UserContext);
 
-  return (
-    <Drawer variant="permanent" sx={{[`& .MuiDrawer-paper`]: {top: "64px"}}}>
+  const {window} = props;
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+  const drawer = (
+    <>
       <List>
         {userData?.channels.map((channel) => (
           <ListItem
@@ -34,7 +43,37 @@ const ChannelBox = () => {
       <Button variant="contained" onClick={() => {}}>
         Make Channel
       </Button>
-    </Drawer>
+    </>
+  );
+
+  const container = window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <>
+      <Drawer
+        container={container}
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{keepMounted: true}}
+        sx={{
+          display: {xs: "block", sm: "none"},
+          "& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth},
+        }}
+      >
+        {drawer}
+      </Drawer>
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: {xs: "none", sm: "block"},
+          "& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth},
+        }}
+        open
+      >
+        {drawer}
+      </Drawer>
+    </>
   );
 };
 
