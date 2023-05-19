@@ -18,7 +18,7 @@ const Channels = () => {
           id: activeChannel,
         }}
       >
-        <Box sx={{display: "flex", marginTop: `${navHeight}px`}}>
+        <Box sx={{display: "flex", height: `100%`}}>
           <ChannelBox />
           <MessageProvider>
             <ChatBox />

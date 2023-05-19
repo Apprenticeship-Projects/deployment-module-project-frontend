@@ -6,7 +6,7 @@ import MessageContext from "../../context/MessageContext";
 import Message from "../molecules/Message";
 import {postMessage} from "../../api/messageRoute";
 import ChannelContext from "../../context/ChannelContext";
-import {drawerWidth} from "../../constants/sizes";
+import {drawerWidth, navHeight} from "../../constants/sizes";
 
 const ChatBox = () => {
   const activeChannel = useContext(ChannelContext);
@@ -18,7 +18,12 @@ const ChatBox = () => {
       container
       direction="column"
       gap={2}
-      sx={{height: "100%", flexGrow: 1, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
+      sx={{
+        height: "100%",
+        paddingTop: `${navHeight}px`,
+        flexGrow: 1,
+        width: {sm: `calc(100% - ${drawerWidth}px)`},
+      }}
     >
       <Grid
         item
