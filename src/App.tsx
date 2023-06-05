@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
+import {createHashRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
 import Index from "./pages/Index";
 import Channels from "./pages/Channels";
 import Root from "./pages/base/Root";
 import Logout from "./pages/Logout";
 
 function App() {
-  const router = createBrowserRouter(
+  const router = createHashRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<Index />} />

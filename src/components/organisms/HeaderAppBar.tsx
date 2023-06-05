@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import {navHeight} from "../../constants/sizes";
 import {IconButton} from "@mui/material";
+import {Link} from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 
 const HeaderAppBar = ({handleDrawerToggle}: {handleDrawerToggle: () => void}) => {
@@ -26,11 +27,11 @@ const HeaderAppBar = ({handleDrawerToggle}: {handleDrawerToggle: () => void}) =>
         >
           <MenuIcon />
         </IconButton>
-        <Button color="inherit" href="/channels">
-          Channels
+        <Button color="inherit">
+          <Link to="/channels">Channels</Link>
         </Button>
-        <Button color="inherit" sx={{marginLeft: "auto"}} href="/logout">
-          Logout
+        <Button color="inherit" sx={{marginLeft: "auto"}}>
+          <Link to="/logout">Logout</Link>
         </Button>
       </Toolbar>
     </AppBar>
