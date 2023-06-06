@@ -33,8 +33,6 @@ const LoginRegisterForm = () => {
   }
 
   async function handleSubmit(event: React.MouseEvent) {
-    event.preventDefault();
-
     let errorLogin = false;
     let errorRegister = false;
 
@@ -65,7 +63,7 @@ const LoginRegisterForm = () => {
       setLoginError({error: false});
       const response = await login(email, password);
       if (!response.error) {
-        await navigate("/channels");
+        navigate("/channels");
       } else {
         setEmailError(true);
         setPasswordError(true);
@@ -78,7 +76,7 @@ const LoginRegisterForm = () => {
       if (!response.error) {
         const loginResponse = await login(email, password);
         if (!loginResponse.error) {
-          await navigate("/channels");
+          navigate("/channels");
         } else {
           setRegisterError({error: true, message: "An error occurred"});
         }
@@ -164,7 +162,14 @@ const LoginRegisterForm = () => {
           onChange={(e) => setUsername(e.target.value)}
         ></TextField>
       )}
-      <Button variant="contained" type="submit" onClick={handleSubmit}>
+      <Button
+        variant="contained"
+        type="submit"
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit(e);
+        }}
+      >
         Submit
       </Button>
     </Box>

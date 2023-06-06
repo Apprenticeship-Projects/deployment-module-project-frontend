@@ -1,11 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import LoginRegisterForm from "../components/organisms/LoginRegisterForm";
 import {Grid} from "@mui/material";
 import {navHeight} from "../constants/sizes";
 
 const Index = () => {
-  const [loginRegister, setLoginRegister] = useState("login");
-
   return (
     <Grid
       sx={{

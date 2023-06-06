@@ -12,7 +12,9 @@ body {
 }
 
 code {
+  border-radius: 3px;
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.9em;
 }
 
 a {

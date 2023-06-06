@@ -1,16 +1,11 @@
-import React, {useState, useContext} from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import React, {useContext} from "react";
 import Grid from "@mui/material/Grid";
 import MessageContext from "../../context/MessageContext";
 import Message from "../molecules/Message";
-import {postMessage} from "../../api/messageRoute";
-import ChannelContext from "../../context/ChannelContext";
 import {drawerWidth, navHeight} from "../../constants/sizes";
+import MessageInput from "./MessageInput";
 
 const ChatBox = () => {
-  const activeChannel = useContext(ChannelContext);
-  const [message, setMessage] = useState("");
   const messageData = useContext(MessageContext);
 
   return (
@@ -44,44 +39,7 @@ const ChatBox = () => {
           })}
       </Grid>
       <Grid item xs="auto">
-        <Grid container gap={2} padding={2} component="form">
-          <Grid item xs>
-            <TextField
-              sx={{width: "100%"}}
-              id="message-input"
-              label="Message"
-              autoComplete="Message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key !== "Enter") return;
-                e.preventDefault();
-                if (message) {
-                  postMessage(activeChannel.id, message).then((response) => {
-                    setMessage("");
-                  });
-                }
-              }}
-            />
-          </Grid>
-          <Grid item xs="auto">
-            <Button
-              sx={{width: "100px", height: "100%"}}
-              variant="contained"
-              type="submit"
-              onClick={(event) => {
-                event.preventDefault();
-                if (message) {
-                  postMessage(activeChannel.id, message).then((response) => {
-                    setMessage("");
-                  });
-                }
-              }}
-            >
-              Send
-            </Button>
-          </Grid>
-        </Grid>
+        <MessageInput />
       </Grid>
     </Grid>
   );
