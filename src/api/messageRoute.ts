@@ -24,3 +24,8 @@ export async function postMessage(channelId: number, content: string) {
 
   return response;
 }
+
+export async function deleteMessage(messageId: number) {
+  const response = await api.delete(`/message/${messageId}`, {withCredentials: true});
+  return response;
+}

@@ -6,6 +6,19 @@ import {postMessage} from "../../api/messageRoute";
 const MessageInput = () => {
   const activeChannel = useContext(ChannelContext);
   const [message, setMessage] = useState("");
+  const [debounce, setDebounce] = useState(false);
+
+  function send() {
+    if (!message) return;
+    setDebounce(true);
+    postMessage(activeChannel.id, message)
+      .then((response) => {
+        setMessage("");
+      })
+      .finally(() => {
+        setDebounce(false);
+      });
+  }
 
   return (
     <Grid container gap={2} padding={2} component="form">
@@ -20,13 +33,9 @@ const MessageInput = () => {
           maxRows={10}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key !== "Enter" || e.getModifierState("Shift")) return;
+            if (e.key !== "Enter" || e.getModifierState("Shift") || debounce) return;
             e.preventDefault();
-            if (message) {
-              postMessage(activeChannel.id, message).then((response) => {
-                setMessage("");
-              });
-            }
+            send();
           }}
         />
       </Grid>
@@ -35,13 +44,10 @@ const MessageInput = () => {
           sx={{width: "100px", height: "100%"}}
           variant="contained"
           type="submit"
+          disabled={debounce}
           onClick={(event) => {
             event.preventDefault();
-            if (message) {
-              postMessage(activeChannel.id, message).then((response) => {
-                setMessage("");
-              });
-            }
+            send();
           }}
         >
           Send

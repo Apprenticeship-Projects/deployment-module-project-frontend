@@ -22,6 +22,9 @@ const Renderer = styled(Markdown)({
     height: "1.2em",
     verticalAlign: "bottom",
   },
+  img: {
+    maxWidth: "80%",
+  },
 });
 
 function convertEmoji(children: React.ReactNode | React.ReactNode[]) {

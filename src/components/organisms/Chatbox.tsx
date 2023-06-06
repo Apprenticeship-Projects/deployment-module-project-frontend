@@ -17,7 +17,7 @@ const ChatBox = () => {
         height: "100%",
         paddingTop: `${navHeight}px`,
         flexGrow: 1,
-        width: {sm: `calc(100% - ${drawerWidth}px)`},
+        width: {sm: `calc(100% - ${drawerWidth}px)`, ms: `calc(100% - ${drawerWidth}px)`},
       }}
     >
       <Grid

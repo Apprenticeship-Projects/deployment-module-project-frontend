@@ -1,30 +1,36 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import MessageContext from "../../context/MessageContext";
 import {getAllChannelMessages} from "../../api/messageRoute";
 import {IncomingMessage} from "../../socket";
 import UserContext from "../../context/UserContext";
 import SocketContext from "../../context/SocketContext";
-import {useImmer} from "use-immer";
 import ChannelContext from "../../context/ChannelContext";
 
 const MessageProvider = ({children}: {children?: React.ReactNode}) => {
   const activeChannel = useContext(ChannelContext);
-  const [messages, setMessages] = useImmer<IncomingMessage[]>([]);
+  const [messages, setMessages] = useState<IncomingMessage[]>([]);
 
   const user = useContext(UserContext);
   const socket = useContext(SocketContext);
 
   useEffect(() => {
     function handleMessageSent(data: IncomingMessage) {
-      setMessages((draft) => {
-        draft.push(data);
+      setMessages((prev) => {
+        prev.push(data);
+        return prev;
       });
     }
 
+    function handleMessageDelete(id: number) {
+      setMessages((prev) => prev.filter((msg) => msg.id !== id));
+    }
+
     socket.socket.on("messageSent", handleMessageSent);
+    socket.socket.on("messageDeleted", handleMessageDelete);
 
     return () => {
       socket.socket.off("messageSent", handleMessageSent);
+      socket.socket.off("messageDeleted", handleMessageDelete);
     };
   }, [setMessages, socket.socket]);
 
