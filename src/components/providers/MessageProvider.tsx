@@ -16,8 +16,9 @@ const MessageProvider = ({children}: {children?: React.ReactNode}) => {
   useEffect(() => {
     function handleMessageSent(data: IncomingMessage) {
       setMessages((prev) => {
-        prev.push(data);
-        return prev;
+        const copy = [...prev];
+        copy.push(data);
+        return copy;
       });
     }
 
